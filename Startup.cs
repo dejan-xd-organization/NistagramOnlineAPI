@@ -1,4 +1,3 @@
-using System;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +12,7 @@ using NistagramSQLConnection.Data;
 using NistagramSQLConnection.Service;
 using NistagramSQLConnection.Service.Interface;
 using NistagramUtils.Mapper;
+using System;
 
 namespace NistagramOnlineAPI
 {
@@ -34,6 +34,7 @@ namespace NistagramOnlineAPI
 
             services.AddScoped<IOnlineService, OnlineServiceImpl>();
             services.AddScoped<IUserService, UserServiceImpl>();
+            services.AddScoped<IPostService, PostServiceImpl>();
 
             var mappingConfig = new MapperConfiguration(mc =>
             {

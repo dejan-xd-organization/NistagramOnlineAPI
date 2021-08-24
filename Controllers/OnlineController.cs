@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using NistagramOnlineAPI.Model;
 using NistagramOnlineAPI.Service;
 using NistagramSQLConnection.Model;
-using NistagramUtils.DTO;
+using NistagramUtils.DTO.Follower;
+using NistagramUtils.DTO.WallPost;
+using NistagramUtils.Response;
+using System;
+using System.Collections.Generic;
 
 namespace NistagramOnlineAPI.Controllers
 {
@@ -26,6 +24,19 @@ namespace NistagramOnlineAPI.Controllers
             _iOnlineService = iOnlineService;
             _mapper = mapper;
         }
+
+        // WALL POSTS //
+
+        [HttpGet]
+        [Route("/[action]")]
+        public Object GetAllWallPosts()
+        {
+            List<WallPost> wallPosts = _iOnlineService.GetAllWallPosts();
+            List<WallPostDto> postDTO = _mapper.Map<List<WallPostDto>>(wallPosts);
+            return JsonConvert.SerializeObject(postDTO);
+        }
+
+        // FOLLOWERS //
 
         [HttpPost]
         [Route("/[action]")]

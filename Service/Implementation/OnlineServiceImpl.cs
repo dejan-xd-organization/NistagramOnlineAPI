@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using NistagramOnlineAPI.Model;
-using NistagramSQLConnection.Model;
+﻿using NistagramSQLConnection.Model;
 using NistagramSQLConnection.Service.Interface;
+using NistagramUtils.DTO.Follower;
+using NistagramUtils.Response;
+using System;
+using System.Collections.Generic;
 
 namespace NistagramOnlineAPI.Service.Implementation
 {
@@ -12,11 +11,22 @@ namespace NistagramOnlineAPI.Service.Implementation
     {
 
         private readonly IUserService _iUserService;
+        private readonly IPostService _iPostService;
 
-        public OnlineServiceImpl(IUserService iUserService)
+        public OnlineServiceImpl(IUserService iUserService, IPostService iPostService)
         {
+            _iPostService = iPostService;
             _iUserService = iUserService;
         }
+
+        // WALL POSTS //
+
+        public List<WallPost> GetAllWallPosts()
+        {
+            return _iPostService.GetAllWallPosts(false);
+        }
+
+        // FOLLOWERS
 
         public Response AddNewFollower(NewFollower newFollower)
         {
@@ -39,7 +49,7 @@ namespace NistagramOnlineAPI.Service.Implementation
         {
             var res = _iUserService.GetNewFollowers(id);
 
-            foreach(Object obj in res)
+            foreach (Object obj in res)
             {
                 var i = obj;
             }

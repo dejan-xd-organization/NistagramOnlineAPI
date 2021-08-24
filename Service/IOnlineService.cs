@@ -1,14 +1,13 @@
-﻿using System;
+﻿using NistagramSQLConnection.Model;
+using NistagramUtils.DTO.Follower;
+using NistagramUtils.Response;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using NistagramOnlineAPI.Model;
-using NistagramSQLConnection.Model;
 
 namespace NistagramOnlineAPI.Service
 {
     public interface IOnlineService
     {
+        List<WallPost> GetAllWallPosts();
         Response AddNewFollower(NewFollower newFollower);
         List<User> GetNewFollowers(string id);
     }
