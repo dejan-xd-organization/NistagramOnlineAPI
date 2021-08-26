@@ -1,4 +1,5 @@
 ﻿using NistagramSQLConnection.Model;
+using NistagramUtils.DTO;
 using NistagramUtils.DTO.Follower;
 using NistagramUtils.Response;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace NistagramOnlineAPI.Service
     {
         List<WallPost> GetAllWallPosts();
         Response AddNewFollower(NewFollower newFollower);
-        List<User> GetNewFollowers(string id);
+        List<UserDto> GetFollowers(string id, int page, bool type);
+        List<UserDto> GetNewFollowings(string id, int page);
     }
 }

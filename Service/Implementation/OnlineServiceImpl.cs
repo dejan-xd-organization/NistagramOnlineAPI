@@ -1,5 +1,6 @@
 ﻿using NistagramSQLConnection.Model;
 using NistagramSQLConnection.Service.Interface;
+using NistagramUtils.DTO;
 using NistagramUtils.DTO.Follower;
 using NistagramUtils.Response;
 using System;
@@ -45,16 +46,30 @@ namespace NistagramOnlineAPI.Service.Implementation
             return res;
         }
 
-        public List<User> GetNewFollowers(string id)
+        public List<UserDto> GetFollowers(string id, int page, bool type)
         {
-            var res = _iUserService.GetNewFollowers(id);
+            List<UserFollower> userFollowers = _iUserService.GetFollowers(id, page, 20, type);
+            List<UserDto> userDto = new List<UserDto>(userFollowers.Count);
 
-            foreach (Object obj in res)
+            foreach (UserFollower uf in userFollowers)
             {
-                var i = obj;
+                userDto.Add(new UserDto(uf.follower.user));
             }
 
-            return null;
+            return userDto;
+        }
+
+        public List<UserDto> GetNewFollowings(string id, int page)
+        {
+            List<UserFollowing> userFollowings = _iUserService.GetNewFollowings(id, page, 20);
+            List<UserDto> userDto = new List<UserDto>(userFollowings.Count);
+
+            foreach(UserFollowing uf in userFollowings)
+            {
+                userDto.Add(new UserDto(uf.following.user));
+            }
+
+            return userDto;
         }
     }
 }

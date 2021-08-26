@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NistagramOnlineAPI.Service;
 using NistagramSQLConnection.Model;
+using NistagramUtils.DTO;
 using NistagramUtils.DTO.Follower;
 using NistagramUtils.DTO.WallPost;
 using NistagramUtils.Response;
@@ -48,10 +49,18 @@ namespace NistagramOnlineAPI.Controllers
 
         [HttpGet]
         [Route("/[action]")]
-        public Object GetNewFollowers(string id)
+        public Object GetAllFollowers(string id, int page)
         {
-            List<User> user = _iOnlineService.GetNewFollowers(id);
+            List<UserDto> user = _iOnlineService.GetFollowers(id, page, true);
             return user;
+        }
+
+        [HttpGet]
+        [Route("/[action]")]
+        public Object GetNewFollowings(string id, int page)
+        {
+            List<UserDto> userDto = _iOnlineService.GetNewFollowings(id, page);
+            return userDto;
         }
     }
 }
