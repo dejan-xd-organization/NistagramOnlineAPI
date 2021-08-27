@@ -1,14 +1,13 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NistagramOnlineAPI.Service;
-using NistagramSQLConnection.Model;
 using NistagramUtils.DTO;
 using NistagramUtils.DTO.Follower;
 using NistagramUtils.DTO.WallPost;
 using NistagramUtils.Response;
-using System;
-using System.Collections.Generic;
 
 namespace NistagramOnlineAPI.Controllers
 {

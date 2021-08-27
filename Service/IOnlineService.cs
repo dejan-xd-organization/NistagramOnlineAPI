@@ -1,8 +1,8 @@
-﻿using NistagramUtils.DTO;
+﻿using System.Collections.Generic;
+using NistagramUtils.DTO;
 using NistagramUtils.DTO.Follower;
 using NistagramUtils.DTO.WallPost;
 using NistagramUtils.Response;
-using System.Collections.Generic;
 
 namespace NistagramOnlineAPI.Service
 {

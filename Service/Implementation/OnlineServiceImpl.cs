@@ -1,11 +1,10 @@
-﻿using NistagramSQLConnection.Model;
+﻿using System.Collections.Generic;
+using NistagramSQLConnection.Model;
 using NistagramSQLConnection.Service.Interface;
 using NistagramUtils.DTO;
 using NistagramUtils.DTO.Follower;
 using NistagramUtils.DTO.WallPost;
 using NistagramUtils.Response;
-using System;
-using System.Collections.Generic;
 
 namespace NistagramOnlineAPI.Service.Implementation
 {
@@ -94,7 +93,7 @@ namespace NistagramOnlineAPI.Service.Implementation
             List<UserFollowing> userFollowings = _iUserService.GetNewFollowings(id, page, 20);
             List<UserDto> userDto = new List<UserDto>(userFollowings.Count);
 
-            foreach(UserFollowing uf in userFollowings)
+            foreach (UserFollowing uf in userFollowings)
             {
                 userDto.Add(new UserDto(uf.following.user));
             }
