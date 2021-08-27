@@ -2,6 +2,7 @@
 using NistagramSQLConnection.Service.Interface;
 using NistagramUtils.DTO;
 using NistagramUtils.DTO.Follower;
+using NistagramUtils.DTO.WallPost;
 using NistagramUtils.Response;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,39 @@ namespace NistagramOnlineAPI.Service.Implementation
         }
 
         // WALL POSTS //
-
-        public List<WallPost> GetAllWallPosts()
+        public List<WallPostDto> GetAllWallPosts(bool isPublic, int page, int limit)
         {
-            return _iPostService.GetAllWallPosts(false);
+            List<bool> isPublics = new List<bool>();
+            if (!isPublic)
+            {
+                isPublics.Add(true);
+                isPublics.Add(false);
+            }
+            else isPublics.Add(true);
+
+            List<WallPost> wallPost = _iPostService.GetAllWallPosts(isPublics, page, 20);
+            List<WallPostDto> wallPostDto = new List<WallPostDto>(wallPost.Count);
+
+            foreach (WallPost wp in wallPost)
+            {
+                wallPostDto.Add(new WallPostDto(wp));
+            }
+
+            return wallPostDto;
+        }
+
+        public bool PutReaction(ReactionDto reactionDto)
+        {
+            _iPostService.PutReaction(reactionDto.id, reactionDto.type, reactionDto.userId);
+            return false;
+        }
+
+        public PostResponseDto NewPost(PostDto postDto)
+        {
+            string link = "../../../../assets/images/resources/user-avatar-default.png";
+            WallPost wallPost = _iPostService.NewPost(postDto.userId, postDto.description, link, true);
+            PostResponseDto newPostDto = new PostResponseDto(wallPost);
+            return newPostDto;
         }
 
         // FOLLOWERS

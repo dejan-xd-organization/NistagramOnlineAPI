@@ -32,9 +32,24 @@ namespace NistagramOnlineAPI.Controllers
         [Route("/[action]")]
         public Object GetAllWallPosts()
         {
-            List<WallPost> wallPosts = _iOnlineService.GetAllWallPosts();
-            List<WallPostDto> postDTO = _mapper.Map<List<WallPostDto>>(wallPosts);
-            return JsonConvert.SerializeObject(postDTO);
+            List<WallPostDto> wallPosts = _iOnlineService.GetAllWallPosts(false, 1, 20);
+            return JsonConvert.SerializeObject(wallPosts);
+        }
+
+        [HttpPut]
+        [Route("/[action]")]
+        public Object PutReaction(ReactionDto reactionDto)
+        {
+            bool reaction = _iOnlineService.PutReaction(reactionDto);
+            return JsonConvert.SerializeObject(reaction);
+        }
+
+        [HttpPost]
+        [Route("/[action]")]
+        public Object NewPost(PostDto postDto)
+        {
+            var newPost = _iOnlineService.NewPost(postDto);
+            return JsonConvert.SerializeObject(newPost);
         }
 
         // FOLLOWERS //
