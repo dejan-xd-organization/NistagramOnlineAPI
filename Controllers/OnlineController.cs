@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using NistagramOnlineAPI.Service;
 using NistagramUtils.DTO;
 using NistagramUtils.DTO.Follower;
+using NistagramUtils.DTO.User;
 using NistagramUtils.DTO.WallPost;
 using NistagramUtils.Response;
 
@@ -75,6 +76,27 @@ namespace NistagramOnlineAPI.Controllers
         {
             List<UserDto> userDto = _iOnlineService.GetNewFollowings(id, page);
             return userDto;
+        }
+
+
+        // USER
+
+        [HttpPut]
+        [Route("/[action]")]
+        public Object UpdateUser(UpdateUserDto updateUserDto)
+        {
+
+            Response res = _iOnlineService.UpdateUser(updateUserDto);
+            return res;
+        }
+
+        [HttpPut]
+        [Route("/[action]")]
+        public Object ChangePassword(ChangePasswordDto changePasswordDto)
+        {
+
+            Response res = _iOnlineService.ChangePassword(changePasswordDto);
+            return res;
         }
     }
 }

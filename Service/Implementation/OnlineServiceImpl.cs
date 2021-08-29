@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using NistagramSQLConnection.Model;
 using NistagramSQLConnection.Service.Interface;
 using NistagramUtils.DTO;
 using NistagramUtils.DTO.Follower;
+using NistagramUtils.DTO.User;
 using NistagramUtils.DTO.WallPost;
 using NistagramUtils.Response;
 
@@ -13,11 +15,13 @@ namespace NistagramOnlineAPI.Service.Implementation
 
         private readonly IUserService _iUserService;
         private readonly IPostService _iPostService;
+        private readonly IMapper _mapper;
 
-        public OnlineServiceImpl(IUserService iUserService, IPostService iPostService)
+        public OnlineServiceImpl(IUserService iUserService, IPostService iPostService, IMapper mapper)
         {
             _iPostService = iPostService;
             _iUserService = iUserService;
+            _mapper = mapper;
         }
 
         // WALL POSTS //
@@ -99,6 +103,59 @@ namespace NistagramOnlineAPI.Service.Implementation
             }
 
             return userDto;
+        }
+
+
+        // USERS
+
+        public Response UpdateUser(UpdateUserDto updateUserDto)
+        {
+            Response res = new Response();
+            var mapperUser = _mapper.Map<User>(updateUserDto);
+            User user = _iUserService.UpdateUser(mapperUser);
+            if (user != null)
+            {
+                UpdateUserDto uuDto = new UpdateUserDto();
+                uuDto.id = user.id;
+                uuDto.firstName = user.firstName;
+                uuDto.lastName = user.lastName;
+                uuDto.username = user.username;
+                uuDto.email = user.email;
+                uuDto.sex = user.sex;
+                uuDto.isPublicProfile = user.isPublicProfile;
+                uuDto.relationship = user.relationship;
+                uuDto.dateOfBirth = (System.DateTime)user.dateOfBirth;
+                uuDto.address = user.address;
+
+
+                res.status = "SUCCESS";
+                res.message = "user_update_SUCCESS";
+                res.updateUserDto = uuDto;
+            }
+            else
+            {
+                res.status = "ERROR";
+                res.message = "user_update_failed";
+            }
+            return res;
+        }
+
+
+        public Response ChangePassword(ChangePasswordDto changePasswordDto)
+        {
+            Response res = new Response();
+            bool status = _iUserService.ChangePassword(changePasswordDto.id, changePasswordDto.oldPassword, changePasswordDto.newPassword);
+            if (status)
+            {
+                res.status = "SUCCESS";
+                res.message = "passwor_changed_SUCCESS";
+            }
+            else
+            {
+                res.status = "ERROR";
+                res.message = "password_changed_failed";
+            }
+            return res;
         }
     }
 }
