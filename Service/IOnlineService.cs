@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+//using NistagramSQLConnection.DTOs;
 using NistagramUtils.DTO;
 using NistagramUtils.DTO.Follower;
+using NistagramUtils.DTO.User;
 using NistagramUtils.DTO.WallPost;
 using NistagramUtils.Response;
 
@@ -14,5 +16,7 @@ namespace NistagramOnlineAPI.Service
         List<UserDto> GetNewFollowings(string id, int page);
         bool PutReaction(ReactionDto reactionDto);
         PostResponseDto NewPost(PostDto postDto);
+        Response UpdateUser(UpdateUserDto updateUserDto);
+        Response ChangePassword(ChangePasswordDto changePasswordDto);
     }
 }
