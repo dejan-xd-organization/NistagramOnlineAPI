@@ -64,17 +64,33 @@ namespace NistagramOnlineAPI.Controllers
 
         [HttpGet]
         [Route("/[action]")]
-        public Object GetAllFollowers(string id, int page)
+        public Object GetMyFollowers(string id, int page)
         {
-            List<UserDto> user = _iOnlineService.GetFollowers(id, page, true);
+            List<UserDto> user = _iOnlineService.GetMyFollowers(id, page, true);
             return user;
         }
 
         [HttpGet]
         [Route("/[action]")]
-        public Object GetNewFollowings(string id, int page)
+        public Object GetMyFollowing(string id, int page)
         {
-            List<UserDto> userDto = _iOnlineService.GetNewFollowings(id, page);
+            List<UserDto> user = _iOnlineService.GetMyFollowing(id, page);
+            return user;
+        }
+
+        [HttpGet]
+        [Route("/[action]")]
+        public Object GetNewFollowers(string id)
+        {
+            List<UserDto> userDto = _iOnlineService.GetNewFollowers(id);
+            return userDto;
+        }
+
+        [HttpGet]
+        [Route("/[action]")]
+        public Object GetNewFollowings(string id)
+        {
+            List<UserDto> userDto = _iOnlineService.GetNewFollowings(id);
             return userDto;
         }
 
@@ -97,6 +113,14 @@ namespace NistagramOnlineAPI.Controllers
 
             Response res = _iOnlineService.ChangePassword(changePasswordDto);
             return res;
+        }
+
+        [HttpGet]
+        [Route("/[action]")]
+        public Object GetMyOnlineWallPosts(long id)
+        {
+            List<WallPostDto> wallPosts = _iOnlineService.GetMyWallPosts(id, 1, 20);
+            return JsonConvert.SerializeObject(wallPosts);
         }
     }
 }

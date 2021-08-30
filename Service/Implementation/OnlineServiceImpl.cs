@@ -79,9 +79,9 @@ namespace NistagramOnlineAPI.Service.Implementation
             return res;
         }
 
-        public List<UserDto> GetFollowers(string id, int page, bool type)
+        public List<UserDto> GetMyFollowers(string id, int page, bool accepted)
         {
-            List<UserFollower> userFollowers = _iUserService.GetFollowers(id, page, 20, type);
+            List<UserFollower> userFollowers = _iUserService.GetMyFollowers(id, page, 20, accepted);
             List<UserDto> userDto = new List<UserDto>(userFollowers.Count);
 
             foreach (UserFollower uf in userFollowers)
@@ -92,9 +92,35 @@ namespace NistagramOnlineAPI.Service.Implementation
             return userDto;
         }
 
-        public List<UserDto> GetNewFollowings(string id, int page)
+        public List<UserDto> GetMyFollowing(string id, int page)
         {
-            List<UserFollowing> userFollowings = _iUserService.GetNewFollowings(id, page, 20);
+            List<UserFollowing> userFollowings = _iUserService.GetMyFollowing(id, page, 20);
+            List<UserDto> userDto = new List<UserDto>(userFollowings.Count);
+
+            foreach (UserFollowing uf in userFollowings)
+            {
+                userDto.Add(new UserDto(uf.following.user));
+            }
+
+            return userDto;
+        }
+
+        public List<UserDto> GetNewFollowers(string id)
+        {
+            List<UserFollower> userFollowers = _iUserService.GetNewFollowers(id);
+            List<UserDto> userDto = new List<UserDto>(userFollowers.Count);
+
+            foreach (UserFollower uf in userFollowers)
+            {
+                userDto.Add(new UserDto(uf.follower.user));
+            }
+
+            return userDto;
+        }
+
+        public List<UserDto> GetNewFollowings(string id)
+        {
+            List<UserFollowing> userFollowings = _iUserService.GetNewFollowings(id);
             List<UserDto> userDto = new List<UserDto>(userFollowings.Count);
 
             foreach (UserFollowing uf in userFollowings)
@@ -156,6 +182,20 @@ namespace NistagramOnlineAPI.Service.Implementation
                 res.message = "password_changed_failed";
             }
             return res;
+        }
+
+        public List<WallPostDto> GetMyWallPosts(long id, int page, int limit)
+        {
+
+            List<UserPost> userPost = _iPostService.GetMyWallPosts(id, page, 20);
+            List<WallPostDto> wallPostDto = new List<WallPostDto>(userPost.Count);
+
+            foreach (UserPost up in userPost)
+            {
+                wallPostDto.Add(new WallPostDto(up.wallPost, up.user));
+            }
+
+            return wallPostDto;
         }
     }
 }
