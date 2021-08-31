@@ -6,9 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NistagramSQLConnection" Version="1.0.11" />
-    <PackageReference Include="NistagramUtils" Version="1.0.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NistagramSQLConnection\NistagramSQLConnection.csproj" />
+    <ProjectReference Include="..\NistagramUtils\NistagramUtils.csproj" />
   </ItemGroup>
 
 </Project>
