@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-//using NistagramSQLConnection.DTOs;
 using NistagramUtils.DTO;
 using NistagramUtils.DTO.Follower;
 using NistagramUtils.DTO.User;
