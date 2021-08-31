@@ -11,4 +11,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NistagramSQLConnection\NistagramSQLConnection.csproj" />
+    <ProjectReference Include="..\NistagramUtils\NistagramUtils.csproj" />
+  </ItemGroup>
+
 </Project>
