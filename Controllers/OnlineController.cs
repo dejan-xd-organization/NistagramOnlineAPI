@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NistagramOnlineAPI.Service;
@@ -18,12 +17,10 @@ namespace NistagramOnlineAPI.Controllers
     {
 
         private readonly IOnlineService _iOnlineService;
-        private readonly IMapper _mapper;
 
-        public OnlineController(IOnlineService iOnlineService, IMapper mapper)
+        public OnlineController(IOnlineService iOnlineService)
         {
             _iOnlineService = iOnlineService;
-            _mapper = mapper;
         }
 
         // WALL POSTS //
