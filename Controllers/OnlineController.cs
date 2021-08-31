@@ -15,7 +15,6 @@ namespace NistagramOnlineAPI.Controllers
     [Route("[controller]")]
     public class OnlineController : ControllerBase
     {
-
         private readonly IOnlineService _iOnlineService;
 
         public OnlineController(IOnlineService iOnlineService)
