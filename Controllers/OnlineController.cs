@@ -15,7 +15,6 @@ namespace NistagramOnlineAPI.Controllers
     [Route("[controller]")]
     public class OnlineController : ControllerBase
     {
-
         private readonly IOnlineService _iOnlineService;
 
         public OnlineController(IOnlineService iOnlineService)
@@ -57,6 +56,14 @@ namespace NistagramOnlineAPI.Controllers
         {
             Response res = _iOnlineService.AddNewFollower(newFollower);
             return res;
+        }
+
+        [HttpPost]
+        [Route("/[action]")]
+        public Object AddFollowing(NewFollowingDto newFollowingDto)
+        {
+            UserDto userDto = _iOnlineService.AddFollowing(newFollowingDto.friendId, newFollowingDto.myId);
+            return userDto;
         }
 
         [HttpGet]
@@ -119,5 +126,6 @@ namespace NistagramOnlineAPI.Controllers
             List<WallPostDto> wallPosts = _iOnlineService.GetMyWallPosts(id, 1, 20);
             return JsonConvert.SerializeObject(wallPosts);
         }
+
     }
 }
