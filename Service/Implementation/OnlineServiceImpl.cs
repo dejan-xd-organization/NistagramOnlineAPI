@@ -55,7 +55,7 @@ namespace NistagramOnlineAPI.Service.Implementation
         public PostResponseDto NewPost(PostDto postDto)
         {
             string link = "../../../../assets/images/resources/user-avatar-default.png";
-            WallPost wallPost = _iPostService.NewPost(postDto.userId, postDto.description, link, true);
+            WallPost wallPost = _iPostService.NewPost(postDto.userId, postDto.description, link, postDto.isPublic);
             PostResponseDto newPostDto = new PostResponseDto(wallPost);
             return newPostDto;
         }
@@ -77,6 +77,14 @@ namespace NistagramOnlineAPI.Service.Implementation
                 res.message = "failed_to_add_new_follower";
             }
             return res;
+        }
+
+        public UserDto AddFollowing(long friendId, long myId)
+        {
+            User user = _iUserService.AddFollowing(friendId, myId);
+            if (user == null) return null;
+            UserDto userDTO = _mapper.Map<UserDto>(user);
+            return userDTO;
         }
 
         public List<UserDto> GetMyFollowers(string id, int page, bool accepted)

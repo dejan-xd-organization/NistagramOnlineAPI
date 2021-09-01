@@ -58,6 +58,14 @@ namespace NistagramOnlineAPI.Controllers
             return res;
         }
 
+        [HttpPost]
+        [Route("/[action]")]
+        public Object AddFollowing(NewFollowingDto newFollowingDto)
+        {
+            UserDto userDto = _iOnlineService.AddFollowing(newFollowingDto.friendId, newFollowingDto.myId);
+            return userDto;
+        }
+
         [HttpGet]
         [Route("/[action]")]
         public Object GetMyFollowers(string id, int page)
@@ -118,5 +126,6 @@ namespace NistagramOnlineAPI.Controllers
             List<WallPostDto> wallPosts = _iOnlineService.GetMyWallPosts(id, 1, 20);
             return JsonConvert.SerializeObject(wallPosts);
         }
+
     }
 }

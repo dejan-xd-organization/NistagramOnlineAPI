@@ -11,6 +11,7 @@ namespace NistagramOnlineAPI.Service
     {
         List<WallPostDto> GetAllWallPosts(bool isPublic, int page, int limit);
         Response AddNewFollower(NewFollower newFollower);
+        UserDto AddFollowing(long friendId, long myId);
         List<UserDto> GetMyFollowers(string id, int page, bool accepted);
         List<UserDto> GetMyFollowing(string id, int page);
         List<UserDto> GetNewFollowers(string id);
